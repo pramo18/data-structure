@@ -1,0 +1,125 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+typedef struct node
+ {
+  int data;
+  struct node *next;
+ }node;
+node *head=0;
+
+void insert_rear(int x)
+ {
+  node *temp;
+  temp=(node*)malloc(sizeof(node));
+  temp->data=x;
+  temp->next=0;
+   if(head==0)
+    head=temp;
+   else
+    {
+     node *temp1=head;
+     while((temp1->next)!=0)
+      {
+        temp1=temp1->next;
+      }
+    temp1->next=temp;
+    }
+ }
+
+void insert_front(int x)
+ {
+  node *temp;
+  temp=(node*)malloc(sizeof(node));
+  temp->data=x;
+  temp->next=head;
+  head=temp;
+ }
+
+void delete_rear()
+{ 
+  node*ptr,*prev;
+  ptr=head;
+  while(ptr->next!=0)
+ {  
+   prev=ptr;
+   ptr=ptr->next;
+ }
+prev->next=0;
+free(ptr);
+}
+void delete_front()
+{
+  node *temp;
+  temp=head;
+  head=head->next;
+  free(temp);
+}
+void delete_pos(int n)
+{ int i;
+  node *prev,*ptr;
+  ptr=head;
+  for(i=1;i<n;i++)
+  { prev=ptr;
+    ptr=ptr->next;
+  }
+ prev->next=ptr->next;
+ free(ptr);
+}
+void display()
+ {
+  node *temp=head;
+  while(temp!=0)
+   {
+    printf("%d ",temp->data);
+    temp=temp->next;
+   }
+ }
+void main()
+{
+ int x=1,n;
+ while(x!=0)
+ {
+  printf("\nenter : 1 for inserting at rear\nenter 2 : for inserting at front\nenter :3 for deleting at front\nenter :4 for deleting at rear\nenter :5 for deleting at specified position");
+  scanf("%d",&n);
+  
+  if(x!=0)
+  {
+   if(n==1)
+    {printf("\nenter the element u want to add other than 0\n");
+  scanf("%d",&x);
+     insert_rear(x);
+     printf("now the list is :\n");
+    }
+   else if(n==2)
+    {printf("\nenter the element u want to add other than 0\n");
+  scanf("%d",&x);
+     insert_front(x);
+     printf("now the list is :\n");
+    }
+   else if(n==3)
+    { 
+      delete_front();
+      printf("now the list is :\n"); 
+     }
+   else if(n==4)
+    { 
+      delete_rear();
+      printf("now the list is :\n");
+    }
+  else if(n==5)
+   {
+     printf("enter the posn");
+     scanf("%d",&n);
+     delete_pos(n);
+     printf("now the list is :\n");
+   }
+  else
+   {
+     printf("invalid");
+      
+   }
+   display();
+  }
+ }
+}
